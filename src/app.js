@@ -2,11 +2,11 @@ function formatDate(timestamp) {
   let date = new Date(timestamp);
   let hours = date.getHours();
   let minutes = date.getMinutes();
-  if (minutes < 10) {
-    minutes = `0${minutes}`;
-  }
   if (hours < 10) {
     hours = `0${hours}`;
+  }
+  if (minutes < 10) {
+    minutes = `0${minutes}`;
   }
 
   let days = [
@@ -23,26 +23,26 @@ function formatDate(timestamp) {
 }
 
 function displayForecast(response) {
-  console.log(response.data.daily);
+  let forecast = response.data.daily;
   let forecastElement = document.querySelector("#forecast");
 
   let days = ["Thu", "Fri", "Sat", "Sun", "Mon", "Tue", "Wed"];
 
   let forecastHTML = `<div class="row">`;
-  days.forEach(function (day) {
+  forecast.forEach(function (forecastDay) {
     forecastHTML =
       forecastHTML +
       `
      <div class="col-2">
-          <div class="weather-forecast-date">${day}</div>
+          <div class="weather-forecast-date">${forecastDay.dt}</div>
           <img
-            src="https://ssl.gstatic.com/onebox/weather/64/partly_cloudy.png"
+            src="http://openweatermap.org/img/wn/${forecastDay.weather[0].icon}@2x.png"
             alt=""
             withd="42px"
           />
           <div class="weather-forecast-temperatures">
-            <span class="weather-forecast-temperature-max">18° </span>
-            <span class="weather-forecast-temperature-min">12° </span>
+            <span class="weather-forecast-temperature-max">${forecastDay.temp.max}° </span>
+            <span class="weather-forecast-temperature-min">${forecastDay.temp.min}°</span>
           </div>
         </div>
       `;
@@ -129,4 +129,3 @@ let celciusLink = document.querySelector("#celcius-link");
 celciusLink.addEventListener("click", displayCelciusTemperature);
 
 search("New York");
-displayForecast();
