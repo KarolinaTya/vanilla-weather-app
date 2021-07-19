@@ -30,6 +30,12 @@ li:first-letter {
 a {
   text-decoration: none;
 }
+img {
+  padding: auto;
+  margin: 10px;
+  margin-left: -10px;
+}
+
 .weather-app {
   padding: 20px;
   border: 1px solid #dadde1;
